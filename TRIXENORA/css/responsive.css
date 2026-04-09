@@ -1,0 +1,183 @@
+/* ===== MOBILE FIRST ===== */
+@media (max-width: 480px) {
+    .cursor { display: none !important; }
+    
+    .nav-content {
+        padding: 1rem 1.5rem;
+    }
+    
+    .nav-links {
+        display: none;
+    }
+    
+    .hamburger {
+        display: flex;
+    }
+    
+    .hero-content {
+        padding: 0 1.5rem;
+        text-align: center;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .cta-button {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+    }
+    
+    .container {
+        padding: 0 1.5rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .feature-card {
+        padding: 2rem 1.5rem;
+    }
+}
+
+/* ===== TABLET ===== */
+@media (min-width: 481px) and (max-width: 768px) {
+    .cursor {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .nav-content {
+        padding: 1.2rem 2rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+}
+
+/* ===== SMALL DESKTOP ===== */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .nav-content {
+        padding: 1.5rem 2.5rem;
+    }
+    
+    .container {
+        padding: 0 2.5rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+}
+
+/* ===== LARGE DESKTOP ===== */
+@media (min-width: 1025px) {
+    .nav-content {
+        padding: 1.5rem 4rem;
+    }
+    
+    .container {
+        padding: 0 4rem;
+    }
+}
+
+/* ===== ULTRA WIDE ===== */
+@media (min-width: 1600px) {
+    .hero-content {
+        max-width: 1200px;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4rem;
+    }
+    
+    .feature-card {
+        padding: 4rem 3rem;
+    }
+}
+
+/* ===== DARK MODE ENHANCEMENTS ===== */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --glass-bg: rgba(15, 15, 25, 0.9);
+        --glass-border: rgba(255, 255, 255, 0.15);
+    }
+}
+
+/* ===== HIGH DPI DISPLAYS ===== */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .glass-card,
+    .feature-card {
+        border-width: 0.5px;
+    }
+    
+    .cursor {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ===== PAGE-SPECIFIC RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .about-grid,
+    .dashboard-grid,
+    .hud-overlay,
+    .emotion-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-gradient {
+        min-height: 60vh;
+    }
+
+    .game-container {
+        padding-bottom: 6rem;
+    }
+
+    .chat-panel {
+        position: relative;
+        width: 100%;
+        margin-top: 1.5rem;
+        right: auto;
+        bottom: auto;
+    }
+}
+
+@media (max-width: 720px) {
+    .nav-content {
+        padding: 1rem 1rem;
+    }
+
+    .hero-content,
+    .page-title,
+    .page-subtitle {
+        padding: 0 1rem;
+        text-align: center;
+    }
+
+    .section-title {
+        font-size: 2.4rem;
+    }
+}

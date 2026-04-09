@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trixenora - About</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="logo-pulse">
+            <div class="logo">TRIXENORA</div>
+        </div>
+        <div class="loading-container">
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <div class="loading-text">Initializing Neural Network...</div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+
+    <nav class="nav-container">
+        <div class="nav-content">
+            <div class="nav-logo">
+                <span>TRI</span><span class="gradient-text">XENORA</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html" class="nav-link" data-page="home">Home</a></li>
+                <li><a href="game.html" class="nav-link" data-page="game">Play</a></li>
+                <li><a href="about.html" class="nav-link active" data-page="about">About</a></li>
+                <li><a href="profile.html" class="nav-link" data-page="profile">Profile</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-gradient">
+        <canvas id="aboutCanvas" class="hero-canvas"></canvas>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="page-title">THE TECHNOLOGY</h1>
+            <p class="page-subtitle">Next-generation emotional AI gaming built on neon-glass systems.</p>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Trixenora?</h2>
+                <p class="section-subtitle">A seamless experience across emotion, gameplay, and atmosphere.</p>
+            </div>
+
+            <div class="about-grid">
+                <article class="about-card glass-panel">
+                    <h3>Adaptive AI</h3>
+                    <p>Our engine learns from your mood, choices, and timing to deliver a bespoke experience.</p>
+                </article>
+                <article class="about-card glass-panel">
+                    <h3>Immersive Design</h3>
+                    <p>High-contrast neon visuals, glassmorphism, and fluid motion keep every screen connected.</p>
+                </article>
+                <article class="about-card glass-panel">
+                    <h3>Unified System</h3>
+                    <p>One theme across Home, Play, About, and Profile for a coherent neon narrative.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="team-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Core Systems</h2>
+                <p class="section-subtitle">Three pillars of the Trixenora experience.</p>
+            </div>
+
+            <div class="about-grid">
+                <article class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Emotion Mapping</h3>
+                    <p>Deep learning translates player sentiment into in-game dynamics.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon">🎮</div>
+                    <h3>Dynamic Story</h3>
+                    <p>Paths shift and evolve alongside real-time emotional feedback.</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon">🌌</div>
+                    <h3>Atmospheric UI</h3>
+                    <p>Consistent neon gradients and glass UI give every page a polished look.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/threejs-scene.js"></script>
+</body>
+</html>

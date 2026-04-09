@@ -1,0 +1,6 @@
+GET    /api/leaderboard      - Top 100 players
+POST   /api/save             - Save game data
+POST   /api/user             - Create user
+GET    /api/user/{id}        - Get user data
+PUT    /api/user/{id}        - Update user
+DELETE /api/save/{id}        - Delete save

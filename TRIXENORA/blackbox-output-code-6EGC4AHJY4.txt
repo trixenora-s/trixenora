@@ -1,0 +1,10 @@
+
+## 🚀 Quick Start
+
+1. **Setup Server**
+```bash
+# Clone & install
+git clone <repo>
+cd trixenora
+composer install  # For PHP dependencies
+npm install       # For any JS packages

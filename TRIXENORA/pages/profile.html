@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trixenora - Profile</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="logo-pulse">
+            <div class="logo">TRIXENORA</div>
+        </div>
+        <div class="loading-container">
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <div class="loading-text">Initializing Neural Network...</div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+
+    <nav class="nav-container">
+        <div class="nav-content">
+            <div class="nav-logo">
+                <span>TRI</span><span class="gradient-text">XENORA</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html" class="nav-link" data-page="home">Home</a></li>
+                <li><a href="game.html" class="nav-link" data-page="game">Play</a></li>
+                <li><a href="about.html" class="nav-link" data-page="about">About</a></li>
+                <li><a href="profile.html" class="nav-link active" data-page="profile">Profile</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-gradient">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="page-title">YOUR NEURAL PROFILE</h1>
+            <p class="page-subtitle">Track moods, unlock achievements, and personalize your Trixenora journey.</p>
+        </div>
+    </section>
+
+    <section class="profile-section">
+        <div class="container">
+            <div class="dashboard-grid">
+                <article class="glass-panel profile-card">
+                    <h3>Emotion Summary</h3>
+                    <p class="profile-text">Your current mood, recent sentiment, and AI recommendations are shown here in a glowing interface.</p>
+                    <div class="profile-stats">
+                        <span>Happy 46%</span>
+                        <span>Neutral 34%</span>
+                        <span>Reflective 20%</span>
+                    </div>
+                </article>
+                <article class="glass-panel profile-card">
+                    <h3>Achievement Pulse</h3>
+                    <p class="profile-text">Earned awards and narrative milestones live inside your profile dashboard.</p>
+                    <div class="achievement-list">
+                        <div class="achievement-item">🔮 Emotion Master</div>
+                        <div class="achievement-item">🏆 Adaptive Winner</div>
+                        <div class="achievement-item">🌐 Connected Story</div>
+                    </div>
+                </article>
+                <article class="glass-panel profile-card">
+                    <h3>Custom Aura</h3>
+                    <p class="profile-text">Build your Trixenora persona with profile themes, audio cues, and AI companion settings.</p>
+                    <a href="game.html" class="cta-button secondary">Continue Adventure</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

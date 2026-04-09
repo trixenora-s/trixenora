@@ -1,0 +1,29 @@
+CREATE DATABASE trixenora_db;
+USE trixenora_db;
+
+CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE game_saves (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    game_data JSON,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE leaderboards (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    score INT DEFAULT 0,
+    level INT DEFAULT 1,
+    playtime INT DEFAULT 0,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    UNIQUE KEY unique_user (user_id)
+);
