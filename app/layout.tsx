@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Trixenora",
-  description: "Authentication and gaming platform",
+  title: "AI Platform",
+  description: "Harness the power of advanced AI models. Chat, create, and build.",
 };
 
 export default function RootLayout({
@@ -11,8 +12,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className="bg-slate-900 text-slate-100">{children}</body>
     </html>
   );
 }
+

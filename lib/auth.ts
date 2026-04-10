@@ -9,7 +9,7 @@ const requiredEnvVars = [
   "DB_PASSWORD",
   "DB_NAME",
   "BETTER_AUTH_URL",
-  "BETTER_AUTH_API_KEY",
+  "ba_e4de5f19292d4281b963a07d1b961534",
 ];
 
 for (const envVar of requiredEnvVars) {
