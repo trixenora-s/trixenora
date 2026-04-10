@@ -1,119 +1,165 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { useState, useEffect } from 'react'
+import { Button } from './ui/button'
+import { Input } from './ui/input'
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
+import { motion, AnimatePresence } from 'framer-motion'
+import { CheckCircle, X, Plus, Trash2 } from 'lucide-react'
+import { useSession } from 'better-auth/react'
 
-interface ApiKey {
-  id: string;
-  name: string;
-  key: string;
-  createdAt: string;
-  lastUsed?: string;
-}
+const PROVIDERS = [
+  { id: 'openai', name: 'OpenAI', placeholder: 'sk-...' },
+  { id: 'google', name: 'Google Gemini', placeholder: 'AIza...' },
+  { id: 'anthropic', name: 'Claude', placeholder: 'sk-ant...' },
+  { id: 'groq', name: 'Groq', placeholder: 'gsk...' },
+  { id: 'cohere', name: 'Cohere', placeholder: '...' },
+  { id: 'huggingface', name: 'Hugging Face', placeholder: 'hf...' },
+  { id: 'replicate', name: 'Replicate', placeholder: '...' },
+  { id: 'stability', name: 'Stability AI', placeholder: 'sk...' },
+  { id: 'deepseek', name: 'DeepSeek', placeholder: 'sk...' },
+  { id: 'together', name: 'Together AI', placeholder: '...' },
+]
 
-export default function ApiKeyManager() {
-  const [apiKeys, setApiKeys] = useState<ApiKey[]>([]);
-  const [showForm, setShowForm] = useState(false);
-  const [keyName, setKeyName] = useState("");
-  const [loading, setLoading] = useState(false);
+export function ApiKeyManager() {
+  const [apiKeys, setApiKeys] = useState<any[]>([])
+  const [newKey, setNewKey] = useState('')
+  const [selectedProvider, setSelectedProvider] = useState('openai')
+  const { data: session } = useSession()
 
-  const handleCreateKey = async () => {
-    if (!keyName.trim()) return;
-
-    setLoading(true);
-    try {
-      const response = await fetch("/api/keys", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: keyName }),
-      });
-
-      if (!response.ok) throw new Error("Failed to create key");
-
-      const newKey = await response.json();
-      setApiKeys((prev) => [...prev, newKey]);
-      setKeyName("");
-      setShowForm(false);
-    } catch (error) {
-      console.error("Error creating key:", error);
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    if (session?.user?.id) {
+      fetchApiKeys()
     }
-  };
+  }, [session])
 
-  const handleDeleteKey = async (id: string) => {
-    try {
-      const response = await fetch(`/api/keys/${id}`, { method: "DELETE" });
-      if (!response.ok) throw new Error("Failed to delete key");
-      setApiKeys((prev) => prev.filter((key) => key.id !== id));
-    } catch (error) {
-      console.error("Error deleting key:", error);
-    }
-  };
+  const fetchApiKeys = async () => {
+    const res = await fetch('/api/api-keys')
+    const data = await res.json()
+    setApiKeys(data)
+  }
+
+  const saveApiKey = async () => {
+    await fetch('/api/api-keys', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        provider: selectedProvider,
+        apiKey: newKey,
+      }),
+    })
+    setNewKey('')
+    fetchApiKeys()
+  }
+
+  const toggleApiKey = async (provider: string, enabled: boolean) => {
+    await fetch('/api/api-keys', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ provider, enabled }),
+    })
+    fetchApiKeys()
+  }
+
+  const deleteApiKey = async (provider: string) => {
+    await fetch('/api/api-keys', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ provider }),
+    })
+    fetchApiKeys()
+  }
 
   return (
     <div className="space-y-6">
-      <Card>
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-lg font-semibold text-white">Your API Keys</h2>
-          <Button onClick={() => setShowForm(!showForm)}>
-            {showForm ? "Cancel" : "Create New Key"}
-          </Button>
-        </div>
-
-        {showForm && (
-          <div className="bg-slate-700 p-4 rounded-lg mb-6 space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-slate-200 mb-2">
-                Key Name
-              </label>
-              <Input
-                value={keyName}
-                onChange={(e) => setKeyName(e.target.value)}
-                placeholder="My first API key"
-              />
-            </div>
-            <Button
-              onClick={handleCreateKey}
-              disabled={loading || !keyName.trim()}
-              className="w-full"
+      <Card className="bg-gradient-to-br from-gray-900/50 to-gray-800/50 backdrop-blur-sm border-gray-700/50">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Plus className="h-5 w-5" />
+            Add New API Key
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <select 
+              value={selectedProvider}
+              onChange={(e) => setSelectedProvider(e.target.value)}
+              className="p-3 bg-gray-800/50 border border-gray-700/50 rounded-xl text-white focus:ring-2 focus:ring-blue-500"
             >
-              {loading ? "Creating..." : "Create Key"}
-            </Button>
+              {PROVIDERS.map(p => (
+                <option key={p.id} value={p.id}>{p.name}</option>
+              ))}
+            </select>
+            <Input
+              placeholder={PROVIDERS.find(p => p.id === selectedProvider)?.placeholder}
+              value={newKey}
+              onChange={(e) => setNewKey(e.target.value)}
+              className="col-span-2"
+            />
           </div>
-        )}
-
-        {apiKeys.length === 0 ? (
-          <p className="text-slate-400">No API keys yet. Create one to get started.</p>
-        ) : (
-          <div className="space-y-3">
-            {apiKeys.map((key) => (
-              <div
-                key={key.id}
-                className="flex items-center justify-between p-4 bg-slate-700 rounded-lg"
-              >
-                <div className="flex-1">
-                  <p className="font-medium text-white">{key.name}</p>
-                  <p className="text-sm text-slate-400 font-mono">
-                    {key.key.slice(0, 10)}...
-                  </p>
-                  <p className="text-xs text-slate-500 mt-1">
-                    Created {new Date(key.createdAt).toLocaleDateString()}
-                  </p>
-                </div>
-                <Button
-                  onClick={() => handleDeleteKey(key.id)}
-                  className="bg-red-600 hover:bg-red-700"
-                >
-                  Delete
-                </Button>
-              </div>
-            ))}
-          </div>
-        )}
+          <Button onClick={saveApiKey} className="w-full" disabled={!newKey}>
+            <CheckCircle className="h-4 w-4 mr-2" />
+            Save API Key
+          </Button>
+        </CardContent>
       </Card>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <AnimatePresence>
+          {apiKeys.map((key) => (
+            <motion.div
+              key={key.provider}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+            >
+              <Card className="bg-gray-900/50 backdrop-blur-sm border-gray-700/50 h-full hover:shadow-2xl transition-all group">
+                <CardContent className="p-6 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-bold text-lg">{key.provider.toUpperCase()}</h3>
+                    <div className={`p-2 rounded-full ${
+                      key.enabled 
+                        ? 'bg-green-500/20 text-green-400' 
+                        : 'bg-red-500/20 text-red-400'
+                    }`}>
+                      {key.enabled ? <CheckCircle className="h-5 w-5" /> : <X className="h-5 w-5" />}
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm text-gray-400 group-hover:text-white">
+                      Usage: {key.usageCount}
+                      <span className="text-xs">requests</span>
+                    </div>
+                    {key.lastUsed && (
+                      <div className="text-xs text-gray-500">
+                        Last used: {new Date(key.lastUsed).toLocaleDateString()}
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex gap-2 pt-4 border-t border-gray-700/50">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => toggleApiKey(key.provider, !key.enabled)}
+                      className="flex-1"
+                    >
+                      {key.enabled ? 'Disable' : 'Enable'}
+                    </Button>
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => deleteApiKey(key.provider)}
+                      className="flex-1"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
     </div>
-  );
+  )
 }

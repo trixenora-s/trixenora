@@ -1,37 +1,35 @@
-"use client";
+'use client'
 
-import { Select } from "@/components/ui/select";
-import { Card } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
 
-const models = [
-  { id: "gpt-4", name: "GPT-4", description: "Most capable model" },
-  { id: "gpt-3.5-turbo", name: "GPT-3.5 Turbo", description: "Fast and reliable" },
-  { id: "claude-3-opus", name: "Claude 3 Opus", description: "Powerful reasoning" },
-  { id: "llama-2-70b", name: "Llama 2 70B", description: "Open-source option" },
-];
+const MODELS = [
+  { value: 'gpt-4o-mini', label: 'GPT-4o Mini (Fast)' },
+  { value: 'gpt-4o', label: 'GPT-4o' },
+  { value: 'claude-3-5-sonnet', label: 'Claude 3.5 Sonnet' },
+  { value: 'gemini-pro', label: 'Gemini Pro' },
+  { value: 'llama3-70b', label: 'Llama 3 70B' },
+]
 
-export default function ModelSelector({
-  selectedModel,
-  onModelChange,
-}: {
-  selectedModel: string;
-  onModelChange: (model: string) => void;
-}) {
+interface ModelSelectorProps {
+  model: string
+  onModelChange: (model: string) => void
+}
+
+export function ModelSelector({ model, onModelChange }: ModelSelectorProps) {
   return (
-    <Card>
-      <h2 className="text-lg font-semibold text-white mb-4">AI Models</h2>
-      <Select value={selectedModel} onChange={(e) => onModelChange(e.target.value)}>
-        {models.map((model) => (
-          <option key={model.id} value={model.id}>
-            {model.name}
-          </option>
-        ))}
+    <div className="w-64">
+      <Select value={model} onValueChange={onModelChange}>
+        <SelectTrigger className="w-full bg-gray-900/50 border-gray-700/50">
+          <SelectValue placeholder="Select model" />
+        </SelectTrigger>
+        <SelectContent className="bg-gray-900 border-gray-700/50">
+          {MODELS.map((m) => (
+            <SelectItem key={m.value} value={m.value} className="focus:bg-gray-800">
+              {m.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
       </Select>
-      <div className="mt-4 pt-4 border-t border-slate-700">
-        <p className="text-sm text-slate-400">
-          {models.find((m) => m.id === selectedModel)?.description}
-        </p>
-      </div>
-    </Card>
-  );
+    </div>
+  )
 }

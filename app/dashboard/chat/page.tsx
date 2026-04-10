@@ -1,35 +1,18 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import Sidebar from "@/components/Sidebar";
-import DashboardHeader from "@/components/DashboardHeader";
-import ChatInterface from "@/components/ChatInterface";
-import ModelSelector from "@/components/ModelSelector";
+import { ChatInterface } from '@/components/ChatInterface'
+import { Sidebar } from '@/components/Sidebar'
+import { useState } from 'react'
 
 export default function ChatPage() {
-  const [selectedModel, setSelectedModel] = useState<string>("gpt-4");
+  const [chatCount, setChatCount] = useState(0)
 
   return (
-    <div className="flex bg-slate-900 min-h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
       <Sidebar />
-      <div className="flex-1">
-        <DashboardHeader />
-        <main className="p-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-              <div className="lg:col-span-3">
-                <ChatInterface model={selectedModel} />
-              </div>
-              <div>
-                <ModelSelector
-                  selectedModel={selectedModel}
-                  onModelChange={setSelectedModel}
-                />
-              </div>
-            </div>
-          </div>
-        </main>
+      <div className="lg:ml-64 p-6">
+        <ChatInterface onNewChat={() => setChatCount(prev => prev + 1)} />
       </div>
     </div>
-  );
+  )
 }

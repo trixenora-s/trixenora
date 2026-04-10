@@ -1,3 +1,0 @@
-:root CSS variables for all colors
---neon-purple, --neon-blue, --neon-red, etc.
-Easy theme switching
