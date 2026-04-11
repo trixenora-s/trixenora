@@ -26,6 +26,9 @@
     "@prisma/client": "^5.22.0",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-toast": "^1.2.15",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.5.0",
+    "@react-three/postprocessing": "^3.0.4",
     "ai": "^6.0.158",
     "bcryptjs": "^3.0.3",
     "better-auth": "^1.0.0",
@@ -44,6 +47,7 @@
     "remark-gfm": "^4.0.1",
     "tailwind-merge": "^2.6.1",
     "tailwindcss-animate": "^1.0.7",
+    "three": "^0.183.2",
     "tw-merge": "^0.0.1-alpha.3"
   },
   "devDependencies": {
