@@ -65,10 +65,11 @@ DATABASE_URL="postgresql://postgres:password@localhost:5432/trixenora?schema=pub
 postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=public
 ```
 
-**PostgreSQL Neon (Cloud):**
+**PostgreSQL Neon (Cloud/Vercel):**
 ```
-postgresql://user@region.neon.tech:5432/database?sslmode=require
+postgresql://user:pass@ep-xxx.region.neon.tech/dbname?sslmode=require&pgbouncer=true&connect_timeout=10&DIRECT_URL=postgresql://user:pass@ep-xxx.region.neon.tech/dbname?sslmode=require
 ```
+*Note for Vercel: Use pooled connection with ?pgbouncer=true. Add DIRECT_URL for Prisma Accelerate if enabled.*
 
 **PostgreSQL Railway:**
 ```

@@ -1,81 +1,73 @@
-# AI Platform
+# Trixenora AI - Best Personal AI Assistant
 
-A modern AI platform built with Next.js, Better Auth, and Prisma.
+A modern, deploy-ready AI platform built with Next.js App Router, Better Auth, Prisma + Neon PostgreSQL, and multi-provider AI (OpenAI, Anthropic, Google, Groq, etc.).
 
-## Features
+## 🚀 Features
 
-- 🔐 Secure authentication with Better Auth
-- 💬 AI chat interface with multiple models
-- 🔑 API key management
-- 📊 Dashboard with statistics
-- 🚀 Serverless deployment ready
+- 🔐 Secure email/password auth with Better Auth
+- 💬 Intelligent chat with model selection & smart routing
+- 🔑 User-managed encrypted API keys per provider
+- 📊 Usage logs & dashboard analytics
+- 🎨 Responsive UI with Tailwind, shadcn/ui, dark/light themes
+- 🌐 Vercel + Neon serverless deploy ready
+- 3D-ready (React Three Fiber prepared)
 
-## Getting Started
-
-### Prerequisites
+## Prerequisites
 
 - Node.js 18+
-- MySQL database
-- Environment variables configured
+- Neon PostgreSQL account (free tier)
 
-### Installation
+## Quick Start (Local)
 
 ```bash
-# Install dependencies
+git clone <repo>
+cd trixenora
 npm install
-
-# Set up environment variables
 cp .env.example .env.local
-
-# Update .env.local with your configuration
-# DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, BETTER_AUTH_URL, BETTER_AUTH_API_KEY
-
-# Run database migrations (if using Prisma)
-npx prisma migrate dev
-
-# Start development server
+# Update DATABASE_URL with Neon connection string
+npx prisma db push
+npx prisma db seed  # Optional demo users
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Visit http://localhost:3000
+
+## Production Deploy (Vercel + Neon)
+
+1. Push to GitHub
+2. Import to Vercel
+3. Add Neon project, copy DATABASE_URL (with ?pgbouncer=true&connect_timeout=10 for pooling)
+4. Add env vars from .env.example
+5. Vercel auto-deploys with prisma generate on build
+
+## Environment Variables
+
+```
+DATABASE_URL          # Neon postgres://... ?sslmode=require&pgbouncer=true
+BETTER_AUTH_SECRET    # openssl rand -hex 32
+BETTER_AUTH_URL       # https://your-vercel-app.vercel.app
+```
+
+AI keys stored per-user.
 
 ## Project Structure
 
 ```
-ai-platform/
-├── app/                 # Next.js app directory
-│   ├── (auth)/         # Auth routes (login, register)
-│   ├── dashboard/      # Protected dashboard routes
-│   └── api/            # API routes
-├── components/         # React components
-│   ├── ui/            # Reusable UI components
-│   └── ...            # Feature components
-├── lib/               # Utility functions and libraries
-├── prisma/            # Database schema
-├── types/             # TypeScript types
-└── middleware.ts      # Next.js middleware
+├── app/              # App Router pages & API
+├── components/       # shadcn/ui + custom
+├── lib/              # Auth, Prisma, AIClient
+├── prisma/           # PostgreSQL schema
+├── public/           # Assets
+└── TODO.md           # Progress tracker
 ```
 
-## Environment Variables
+## Best Personal AI Assistant Features
 
-Required environment variables:
-
-- `DB_HOST` - Database host
-- `DB_USER` - Database user
-- `DB_PASSWORD` - Database password
-- `DB_NAME` - Database name
-- `BETTER_AUTH_URL` - Authentication base URL
-- `BETTER_AUTH_API_KEY` - Authentication secret key
-
-## Deployment
-
-Deploy to Vercel:
-
-```bash
-git push origin main
-```
-
-Make sure to set environment variables in Vercel project settings.
+- Multi-model support with smart task routing (coding → Claude, etc.)
+- Conversation history
+- Usage tracking/costs
+- Encrypted key storage
+- Extendable for voice, 3D avatar, memory
 
 ## License
 

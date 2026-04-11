@@ -2,7 +2,7 @@ import { generateText, generateObject } from 'ai'
 import { openai } from '@ai-sdk/openai'
 import { google } from '@ai-sdk/google'
 import { anthropic } from '@ai-sdk/anthropic'
-import { huggingFace } from '@ai-sdk/huggingface'
+import { huggingface } from '@ai-sdk/huggingface'
 import { PrismaClient, ApiKey } from '@prisma/client'
 import { encrypt, decrypt } from './encryption'
 import { prisma } from './prisma'
@@ -11,7 +11,7 @@ const AI_PROVIDERS = {
   openai: openai,
   google: google,
   anthropic: anthropic,
-  huggingface: huggingFace,
+  huggingface: huggingface,
   groq: openai, // Groq uses OpenAI compatible API
   cohere: openai, // Placeholder
   replicate: openai, // Placeholder
@@ -46,7 +46,7 @@ export class AIClient {
     
     try {
       const result = await generateText({
-        model: client(model, { apiKey }),
+        model: client(model),
         prompt,
         ...options,
         maxTokens: 4000,
@@ -58,7 +58,8 @@ export class AIClient {
           userId,
           provider,
           model,
-          tokens: result.usage?.total || 0,
+          tokens: (result.usage?.inputTokens || 0) + (result.usage?.outputTokens || 0),
+          cost: 0, // TODO: Calculate based on provider rates
           success: true,
         }
       })
@@ -71,8 +72,8 @@ export class AIClient {
           provider,
           model,
           tokens: 0,
+          cost: 0,
           success: false,
-          prompt,
         }
       })
       throw error

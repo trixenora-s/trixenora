@@ -6,7 +6,6 @@ import { Input } from './ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle, X, Plus, Trash2 } from 'lucide-react'
-import { useSession } from 'better-auth/react'
 
 const PROVIDERS = [
   { id: 'openai', name: 'OpenAI', placeholder: 'sk-...' },
@@ -25,13 +24,11 @@ export function ApiKeyManager() {
   const [apiKeys, setApiKeys] = useState<any[]>([])
   const [newKey, setNewKey] = useState('')
   const [selectedProvider, setSelectedProvider] = useState('openai')
-  const { data: session } = useSession()
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    if (session?.user?.id) {
-      fetchApiKeys()
-    }
-  }, [session])
+    fetchApiKeys()
+  }, [])
 
   const fetchApiKeys = async () => {
     const res = await fetch('/api/api-keys')

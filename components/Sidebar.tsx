@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { 
   MessageCircle, 
@@ -12,11 +12,10 @@ import {
   Home 
 } from 'lucide-react'
 import { Button } from './ui/button'
-import { useSession, signOut } from 'better-auth/react'
 
 export function Sidebar() {
   const pathname = usePathname()
-  const { data: session } = useSession()
+  const router = useRouter()
 
   const NAV_ITEMS = [
     { href: '/dashboard', label: 'Dashboard', icon: Home },
@@ -35,7 +34,7 @@ export function Sidebar() {
         <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
           AI Platform
         </div>
-        <p className="text-sm text-gray-400 mt-2">{session?.user?.email}</p>
+        <p className="text-sm text-gray-400 mt-2">Welcome</p>
       </div>
 
       <nav className="p-6 space-y-2 mt-8">
@@ -65,7 +64,12 @@ export function Sidebar() {
         <Button
           variant="ghost"
           className="w-full justify-start h-12 px-4 hover:bg-red-500/20 hover:text-red-400 border-red-500/30 transition-all duration-200"
-          onClick={() => signOut()}
+          onClick={() => {
+            // Clear auth and redirect to login
+            fetch('/api/auth/logout', { method: 'POST' })
+              .then(() => router.push('/login'))
+              .catch(() => router.push('/login'))
+          }}
         >
           <LogOut className="h-5 w-5 mr-3" />
           <span>Sign Out</span>

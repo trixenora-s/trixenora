@@ -7,7 +7,6 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { motion } from 'framer-motion'
 import { Mail, Lock, Loader2 } from 'lucide-react'
-import { signIn } from 'better-auth/react'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -22,10 +21,22 @@ export default function LoginPage() {
     setError('')
 
     try {
-      await signIn('email-password', {
-        email,
-        password,
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
       })
+
+      if (!response.ok) {
+        const data = await response.json()
+        throw new Error(data.message || 'Login failed')
+      }
+
       router.push('/dashboard')
     } catch (err: any) {
       setError(err.message || 'Login failed')

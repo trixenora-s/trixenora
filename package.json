@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "postinstall": "prisma generate",
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "db:push": "prisma db push",
@@ -17,31 +18,41 @@
     "seed": "ts-node --compiler-options {\"module\":\"commonjs\"} prisma/seed.ts"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "^3.0.69",
+    "@ai-sdk/google": "^3.0.61",
+    "@ai-sdk/huggingface": "^1.0.43",
+    "@ai-sdk/openai": "^3.0.52",
     "@better-auth/infra": "^0.1.14",
     "@prisma/client": "^5.22.0",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-toast": "^1.2.15",
+    "ai": "^6.0.158",
+    "bcryptjs": "^3.0.3",
     "better-auth": "^1.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "crypto-js": "^4.2.0",
     "dotenv": "^16.3.1",
+    "framer-motion": "^12.38.0",
     "lucide-react": "^0.400.0",
-    "mysql2": "^3.22.0",
     "next": "^16.2.3",
+    "next-auth": "^4.24.13",
+    "next-themes": "^0.4.6",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "react-markdown": "^9.1.0",
     "remark-gfm": "^4.0.1",
     "tailwind-merge": "^2.6.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "tw-merge": "^0.0.1-alpha.3"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/crypto-js": "^4.2.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@tailwindcss/postcss": "^4.0.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^8",
     "eslint-config-next": "^15.5.15",
@@ -52,4 +63,3 @@
     "typescript": "^5"
   }
 }
-
